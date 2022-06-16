@@ -6,6 +6,7 @@ Be great, Be bold, Be brave.
 *******************************************************************************/
 #include <iostream>
 #include <algorithm>
+#include <string>
 using namespace std;
 // Display char array
 void Display(char str[]);
@@ -20,9 +21,13 @@ void UpperLowe(char str[]);
 int vowel(char str[]);
 // Counting consonants 
 int consonants(char str[]);
-
 // Counting words
 int countWords(char str[]);
+// Checking for valid char login password
+// Has to be alphabet letter
+bool isValid(char str[]);
+// Let's revers char array (;
+void reverseChar(char str[]);
 
 
 
@@ -54,8 +59,19 @@ int main(){
     }else{
          cout << "There are " << countWrds  << " word in list" << endl;
     }
+    
 
- 
+cout << "Checking for valid input " << endl;
+cout << endl <<  "Enter your passwords: ";
+  char str[20];
+  cin.get(str, '\n');
+  if(isValid(str)){
+   cout << "Welcome back!" << endl;
+  }else{
+   cout << "Invalid password! " << endl;
+  }
+  
+    reverseChar(name);
     return 0;
 }
 
@@ -134,13 +150,35 @@ int countWords(char str[]){
         count++;
      }
   }
-   
   return count;
 }
 
 
+// Checking for valid char login password
+// Has to be alphabet letter
+bool isValid(char str[]){
+ for(int i = 0; str[i] != '\0';i++){
+     if(!(str[i] >= 65 && str[i] <= 90)  && !(str[i] >= 97 && str[i] <= 122) && !(str[i] >= 48 && str[i] <= 57)){
+      return false;
+     }
+ }
+ return true;
+}
 
-
+// Let's revers char array (;
+void reverseChar(char str[]){
+   char t;
+   int i,j;
+   for(i = 0; str[i] != '\0'; i++){};
+   i = i-1;
+   for(j = 0; j < i; j++,i--){
+    // Swapping with last and first with each others
+    t = str[i];
+    str[i] = str[j];
+    str[j] = t;
+   }
+   cout << str << endl;
+}
 
 
 
