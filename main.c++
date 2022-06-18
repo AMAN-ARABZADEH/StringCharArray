@@ -28,6 +28,16 @@ int countWords(char str[]);
 bool isValid(char str[]);
 // Let's revers char array (;
 void reverseChar(char str[]);
+// Comparing two char array
+bool Comparing(char str[], char str2[]);
+// Checking for Palindrome
+bool isPalindrome(char str[]);
+// Finding duplicate in a char in a string
+void Duplicate(char str[]);
+// Find duplicate using bits
+void bitDuplicate(char str[]);
+// Checking for anagram in array of chars
+bool isAnagram(char str[], char str2[]);
 
 
 
@@ -61,17 +71,40 @@ int main(){
     }
     
 
-cout << "Checking for valid input " << endl;
-cout << endl <<  "Enter your passwords: ";
+  cout << "Checking for valid input " << endl;
+  cout << endl <<  "Enter your passwords: ";
   char str[20];
   cin.get(str, '\n');
   if(isValid(str)){
-   cout << "Welcome back!" << endl;
+    cout << "Welcome back!" << endl;
   }else{
-   cout << "Invalid password! " << endl;
+    cout << "Invalid password! " << endl;
   }
-  
-    reverseChar(name);
+   cout << endl << "Reversing char array " << endl;
+   reverseChar(name);
+   cout << endl << "Comparing two char array string " << endl;
+    char F[] = "Aman";
+    char D[] = "Aman";
+    bool isEqual = Comparing(F, D);
+    if(isEqual){
+      cout << "Is equal." << endl;
+    }else {
+      cout << "Not equal" << endl;
+    }
+    cout << endl << "Checking for duplicates in cg´har array string" << endl;
+    char W[] = "giving away is good for you";
+    Duplicate(W);
+    cout << "Using bits to check for duplicate " << endl;
+    bitDuplicate(W);
+    cout << "Checking for anagram." << endl;
+    char AN[] = "verbose";
+    char ANW[] = "observe";
+    bool isAnag = isAnagram(AN, ANW);
+    if(isAnag){
+       cout << "It's Anagram" << endl;
+    }else{
+      cout << "Not Anagram" << endl;
+    }
     return 0;
 }
 
@@ -178,9 +211,86 @@ void reverseChar(char str[]){
     str[j] = t;
    }
    cout << str << endl;
+}  
+
+
+// Comparing two char array
+bool Comparing(char str[], char str2[]){
+ int i = 0;
+ int j = 0;
+     for(i = 0,j = 0; str[i] != '\0' && str2[j] != '\0'; i++,j++){
+       if(str[i] != str2[j]){
+            break;
+       }
+     }
+     if(str[i] == str2[j]){
+         return true;
+     }
+     return false;
+}
+
+/*
+// Checking for Palindrome
+bool isPalindrome(char str[]){
+  reverseChar(str);
+  int siz = strlen(str);
+  char str2[siz];
+  for(int i = 0; str[i] != '\0'; i++){
+    str2[i] = str[i];
+  }
+  Comparing(str, str2);
+}
+*/
+// Finding duplicate in a char in a string
+void Duplicate(char str[]){
+   int hash[26] = {0},i;
+   for(i = 0; str[i] != '\0'; i++){
+       hash[str[i]-97]++;
+   }
+   for(i = 0; i < 26; i++){
+      if(hash[i] > 1){
+         cout << char(i + 97) << " ";
+         cout << hash[i]<< endl;
+      }
+   }
 }
 
 
+// Find duplicate using bits
 
+void bitDuplicate(char str[]){
+  int H = 0, x = 0, taken=0; 
+for(int i = 0; str[i] != '\0'; i++){ 
+    x = 1; 
+    x = x << (str[i] - 97); 
+    if((x & H) > 0){   
+     if(!(x & taken)){
+         cout << "Duplicate found " << str[i] << endl;  
+         taken=x|taken;
+         
+         
+     }
+     cout << "Duplicate found " << str[i] << endl;   
+    }else{       
+      H = x | H;    
+    }  
+  }
+}  
+ 
 
-
+// Checking for anagram in array of chars
+bool isAnagram(char str[], char str2[]){
+    int i, H[26] ={0};
+    for(i = 0; str[i] != '\0'; i++){
+       H[str[i]-97]++;
+    }
+    for(i = 0; str2[i] != '\0'; i++){
+       H[str[i]-97]--;
+       if((H[str[i]-97]) < 0){
+          return false;
+          break;
+       }
+    }
+    if(str2[i]  == '\0')
+      return true;
+}
